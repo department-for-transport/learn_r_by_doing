@@ -1,0 +1,85 @@
+---
+title: "Session 1: Daily Usage Data"
+output: html_document
+date: '2023-07-11'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(rvest)
+library(dplyr)
+
+url <- "https://www.gov.uk/government/statistics/transport-use-during-the-coronavirus-covid-19-pandemic"
+
+#Set up a function to neatly read the file in
+read_online <- function(url){
+  #Read all HTML
+  pg <- read_html(url)
+  #Pull href html links
+  pg <- html_attr(html_nodes(pg, "a"), "href")
+  
+  #Keep only ones which link to Covid CSV and ignore duplicates
+  pg <- pg[grepl("[.]csv$", pg)] %>% 
+    unique()
+  
+  if(length(pg) != 1){
+    stop("A single CSV file could not be identified at this URL")
+  }
+
+  return(pg)
+  
+}
+
+```
+
+
+## The data
+
+The data we're using today is the daily transport usage stats, initially produced for Covid reporting. This data provides a daily figure for usage by mode, indexed to a pre-Covid baseline figure.
+
+The data is available [here](`r read_online(url)`) in a tidy, machine-readable format, and you can see the first 10 rows of the data below:
+
+```{r}
+data.table::fread(read_online(url)) %>%
+  head() %>%
+  knitr::kable()
+```
+
+The data covers the following modes:
+
+* all_motor_vehicles
+* tfl_tube 
+* tfl_bus
+* national_rail 
+* cycling
+* bus_excluding_london
+
+Motor vehicles is further broken down by vehicle type:
+
+* cars
+* light_commercial_vehicles
+* heavy_goods_vehicles
+
+Where no data is available for a specific date, you can treat that as an NA value.
+
+
+
+## The task
+
+1. Read the data in to R. You don't need to save the file locally, you can do this directly from the web link (`r read_online(url)`) 
+
+2. Check that the data is clean, and the different modal names are in a publication-ready format
+
+3. Create a ggplot chart of the data, with dates on the x axis and value on the y axis, with one line per transport mode.
+
+4. Make your chart publication-worthy! Aspects you may want to consider include:
+
+* The theme and colours used in your charts
+* The formatting and labelling of your chart axes
+* What should the date range of your data be?
+* Do you want to include weekends and bank holidays?
+* Do you want to include every mode? Could you split the chart to show different groupings on different charts?
+
