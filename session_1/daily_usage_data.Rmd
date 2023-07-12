@@ -1,6 +1,6 @@
 ---
 title: "Session 1: Daily Usage Data"
-output: html_document
+output: prettydoc::html_pretty
 date: '2023-07-11'
 ---
 
