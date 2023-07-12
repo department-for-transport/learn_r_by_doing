@@ -1,0 +1,25 @@
+---
+title: "Learn R by Doing"
+output: prettydoc::html_pretty
+date: '2023-07-12'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is a repository designed for free-form, hour-long R practice tasks. Each session provides you with a dataset, and a task to complete with that data.
+
+## List of sessions
+
+[Session 1: Daily Transport Usage Stats](/daily_usage_data.html)
+
+## Resources and help on the day
+
+There are resources you can make use of if you're stuck on something!
+
+[Data analysis and visualisation in R](https://department-for-transport.github.io/intro_R/)
+[Tidy data in R](https://department-for-transport.github.io/tidy_data_workshop/)
+
+And there will always be experts on hand to help you out, so don't be afraid to ask!
+

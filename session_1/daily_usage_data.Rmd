@@ -66,7 +66,6 @@ Motor vehicles is further broken down by vehicle type:
 Where no data is available for a specific date, you can treat that as an NA value.
 
 
-
 ## The task
 
 1. Read the data in to R. You don't need to save the file locally, you can do this directly from the web link (`r read_online(url)`) 

@@ -58,6 +58,8 @@ Outputs/
 *.md
 ##Your readme is cool though
 !README.md
+##So are our docs
+!docs/*
 
 ##Common image types
 *.png
