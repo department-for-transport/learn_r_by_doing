@@ -40,7 +40,7 @@ vignettes/*.pdf
 .Renviron
 
 ##Data and output folders
-Data/
+Data/*
 Outputs/
 
 # Common data filetypes
@@ -60,6 +60,7 @@ Outputs/
 !README.md
 ##So are our docs
 !docs/*
+!Data/taxi0116.xlsx
 
 ##Common image types
 *.png
