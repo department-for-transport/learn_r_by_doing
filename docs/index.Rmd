@@ -12,14 +12,14 @@ This is a repository designed for free-form, hour-long R practice tasks. Each se
 
 ## List of sessions
 
-[Session 1: Daily Transport Usage Stats](/daily_usage_data.html)
+[Session 1: Daily Transport Usage Stats](learn_r_by_doing/daily_usage_data.html)
 
 ## Resources and help on the day
 
 There are resources you can make use of if you're stuck on something!
 
-[Data analysis and visualisation in R](https://department-for-transport.github.io/intro_R/)
-[Tidy data in R](https://department-for-transport.github.io/tidy_data_workshop/)
+* [Data analysis and visualisation in R](https://department-for-transport.github.io/intro_R/)
+* [Tidy data in R](https://department-for-transport.github.io/tidy_data_workshop/)
 
 And there will always be experts on hand to help you out, so don't be afraid to ask!
 
