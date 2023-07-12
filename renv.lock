@@ -929,6 +929,16 @@
       ],
       "Hash": "01f28d4278f15c76cddbea05899c5d6f"
     },
+    "prettydoc": {
+      "Package": "prettydoc",
+      "Version": "0.4.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "rmarkdown"
+      ],
+      "Hash": "c20a905f41b50770438ac4727649546f"
+    },
     "prettyunits": {
       "Package": "prettyunits",
       "Version": "1.1.1",
@@ -1034,7 +1044,7 @@
     },
     "readxl": {
       "Package": "readxl",
-      "Version": "1.4.2",
+      "Version": "1.4.3",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
@@ -1045,7 +1055,7 @@
         "tibble",
         "utils"
       ],
-      "Hash": "2e6020b1399d95f947ed867045e9ca17"
+      "Hash": "8cf9c239b96df1bbb133b74aef77ad0a"
     },
     "rematch": {
       "Package": "rematch",

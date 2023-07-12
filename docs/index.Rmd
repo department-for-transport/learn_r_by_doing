@@ -12,7 +12,7 @@ This is a repository designed for free-form, hour-long R practice tasks. Each se
 
 ## List of sessions
 
-[Session 1: Daily Transport Usage Stats](learn_r_by_doing/daily_usage_data.html)
+[Session 1: Daily Transport Usage Stats](/daily_usage_data.html)
 
 ## Resources and help on the day
 
