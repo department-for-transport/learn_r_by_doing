@@ -1,31 +1,29 @@
-# DfT Analyst R repository template
+# Learn R by Doing
 
-This is a template git repository for use by DfT analysts in R. It aims to standardise issue reporting and pull requests, as well as minimising the risk of accidentally pushing secure data.
+This is a repository designed for free-form, hour-long R practice tasks. Each session provides you with a dataset, and a task to complete with that data.
 
-## To use 
+## Getting started
 
-To use this template, click on the green button "use template" at the top of this repository. This will allow you to set up a repository as normal, using the structure and features of this repo.
+There are a few steps to getting started with this repository, and it should take around 5 minutes to be ready to use. 
 
-## Features
+1. Clone the repository into Cloud R; you can use either SSH or HTTPS authentication to do this. If you're not familiar with cloning from Github, check out the [CRAN Shorts videos on how to do this here](https://departmentfortransportuk.sharepoint.com/:f:/s/CoffeeandCodingRS-AS-ADD/EqSpUcaNVrtOrXTAtVhbyiwBTBuacWHpUlxoVs-FWaaH1w?e=QbyYtF)
 
-### Raising issues
+2. Load up a basic set of libraries you'll need for the day with: 
 
-The repository contains two issue templates which are loaded automatically; one for bug reporting, and one for feature suggestions. These can be used to record issues and planned improvements within your code, and the standardised template ensures you capture all of the required information every time.
+`renv::restore()`
 
-### Pull requests
+Press Y and enter when prompted, and allow renv to install the packages. When it's done, restart R with CTRL + SHIFT + F10
 
-The repository contains a pull request template which loads automatically. This standardised form to complete ensures you are appropriately reviewing pull requests and provides a QA record of code changes.
+If you need any other libraries for the analysis you have planned, you can install them as normal.
 
-### Commit template
+3. You're set up and ready to go!
 
-The repository contains a git commit template. This does not load automatically, and must be requested in your R terminal by running
 
-`git config commit.template .gitmessage`
+## Resources and help on the day
 
-This provides a template for good git messages, and also reminds users not to commit to Github any secrets or data.
+There are resources you can make use of if you're stuck on something!
 
-### Gitignore
+* [Data analysis and visualisation in R](https://department-for-transport.github.io/intro_R/)
+* [Tidy data in R](https://department-for-transport.github.io/tidy_data_workshop/)
 
-The git ignore file is set to ignore common data formats such as xlsx, csv and ods tables. It also ignores the .renviron file to allow you to store secrets such as API keys securely in your local environment.
-
-The repository also includes Data and Output folders. Putting data inputs and outputs into these folders ensures they will not be pushed to Git, regardless of format. This is ideal when you have a project with a large number of varied inputs or outputs (e.g. XML files, or HTML outputs).
+And there will always be experts on hand to help you out, so don't be afraid to ask!
