@@ -8,6 +8,25 @@ date: '2023-07-11'
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+```{css, echo=FALSE}
+.spoiler {
+  visibility: hidden;
+}
+
+.spoiler::before {
+  visibility: visible;
+  content: "HINT! Hover me to see a hint to help on this step."
+}
+
+.spoiler:hover {
+  visibility: visible;
+}
+
+.spoiler:hover::before {
+  display: none;
+}
+```
+
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 library(rvest)
 library(dplyr)
@@ -44,7 +63,7 @@ The data is available [here](`r read_online(url)`) in a tidy, machine-readable f
 
 ```{r}
 data.table::fread(read_online(url)) %>%
-  head() %>%
+  head(10) %>%
   knitr::kable()
 ```
 
@@ -70,9 +89,9 @@ Where no data is available for a specific date, you can treat that as an NA valu
 
 1. Read the data in to R. You don't need to save the file locally, you can do this directly from the web link (`r read_online(url)`) 
 
-2. Check that the data is clean, and the different modal names are in a publication-ready format
+2. Check that the data is clean, and the different modal names are in a publication-ready format **[You can use a combination of mutate and gsub/str_replace to swap underscores for spaces]{.spoiler}**
 
-3. Create a ggplot chart of the data, with dates on the x axis and value on the y axis, with one line per transport mode.
+3. Create a ggplot line chart of the data, with dates on the x axis and value on the y axis, with one line per transport mode.
 
 4. Make your chart publication-worthy! Aspects you may want to consider include:
 

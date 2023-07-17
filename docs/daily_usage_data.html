@@ -55,12 +55,30 @@ Data</h1>
 
 
 <section class="main-content">
+<style type="text/css">
+.spoiler {
+  visibility: hidden;
+}
+
+.spoiler::before {
+  visibility: visible;
+  content: "HINT! Hover me to see a hint to help on this step."
+}
+
+.spoiler:hover {
+  visibility: visible;
+}
+
+.spoiler:hover::before {
+  display: none;
+}
+</style>
 <div id="the-data" class="section level2">
 <h2>The data</h2>
 <p>The data we’re using today is the daily transport usage stats,
 initially produced for Covid reporting. This data provides a daily
 figure for usage by mode, indexed to a pre-Covid baseline figure.</p>
-<p>The data is available <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1162669/full_data_clean.csv">here</a>
+<p>The data is available <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1169293/full_data_clean.csv">here</a>
 in a tidy, machine-readable format, and you can see the first 10 rows of
 the data below:</p>
 <table>
@@ -102,6 +120,26 @@ the data below:</p>
 <td align="left">tfl_bus</td>
 <td align="right">1.02</td>
 </tr>
+<tr class="odd">
+<td align="left">2020-03-01</td>
+<td align="left">national_rail</td>
+<td align="right">0.95</td>
+</tr>
+<tr class="even">
+<td align="left">2020-03-02</td>
+<td align="left">cars</td>
+<td align="right">1.02</td>
+</tr>
+<tr class="odd">
+<td align="left">2020-03-02</td>
+<td align="left">light_commercial_vehicles</td>
+<td align="right">1.06</td>
+</tr>
+<tr class="even">
+<td align="left">2020-03-02</td>
+<td align="left">heavy_goods_vehicles</td>
+<td align="right">1.03</td>
+</tr>
 </tbody>
 </table>
 <p>The data covers the following modes:</p>
@@ -126,11 +164,13 @@ an NA value.</p>
 <h2>The task</h2>
 <ol style="list-style-type: decimal">
 <li><p>Read the data in to R. You don’t need to save the file locally,
-you can do this directly from the web link (<a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1162669/full_data_clean.csv" class="uri">https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1162669/full_data_clean.csv</a>)</p></li>
+you can do this directly from the web link (<a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1169293/full_data_clean.csv" class="uri">https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1169293/full_data_clean.csv</a>)</p></li>
 <li><p>Check that the data is clean, and the different modal names are
-in a publication-ready format</p></li>
-<li><p>Create a ggplot chart of the data, with dates on the x axis and
-value on the y axis, with one line per transport mode.</p></li>
+in a publication-ready format <strong><span class="spoiler">You can use
+a combination of mutate and gsub/str_replace to swap underscores for
+spaces</span></strong></p></li>
+<li><p>Create a ggplot line chart of the data, with dates on the x axis
+and value on the y axis, with one line per transport mode.</p></li>
 <li><p>Make your chart publication-worthy! Aspects you may want to
 consider include:</p></li>
 </ol>
