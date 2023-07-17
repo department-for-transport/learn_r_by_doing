@@ -1,0 +1,51 @@
+---
+title: "Session 1: Daily Usage Data"
+output: prettydoc::html_pretty
+date: '2023-07-13'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(dplyr)
+library(readxl)
+
+```
+
+
+## The data
+
+The data we're using today are new experimental statistics looking at the percentage of taxis and PHVs (private hire vehicles) of different ages by region.
+
+The data is available in the data folder associated with this project ("Data/taxi0116.xlsx") in a non-tidy, human-readable format, and you can see the first rows of the data below:
+
+```{r}
+readxl::read_excel("../Data/taxi0116.xlsx", sheet = 3, skip = 5) %>%
+  head() %>%
+  knitr::kable()
+```
+
+The data covers both taxis and PHVs in separate tables. Each different age range of the vehicles is recorded in a separate column, and each row is for a different region. 
+
+Each cell contains a value of percentage of vehicles in each region or country that are in each age bracket. Each region or country sums to 100%.
+
+
+
+## The task
+
+1. Read the data in to R. You don't need to save the file locally, you can do this directly from the web link
+
+2. Check that the data is clean, and the different modal names are in a publication-ready format
+
+3. Create a ggplot chart of the data, with dates on the x axis and value on the y axis, with one line per transport mode.
+
+4. Make your chart publication-worthy! Aspects you may want to consider include:
+
+* The theme and colours used in your charts
+* The formatting and labelling of your chart axes
+* What should the date range of your data be?
+* Do you want to include weekends and bank holidays?
+* Do you want to include every mode? Could you split the chart to show different groupings on different charts?
+
