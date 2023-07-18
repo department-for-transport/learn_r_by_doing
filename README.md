@@ -27,3 +27,7 @@ There are resources you can make use of if you're stuck on something!
 * [Tidy data in R](https://department-for-transport.github.io/tidy_data_workshop/)
 
 And there will always be experts on hand to help you out, so don't be afraid to ask!
+
+## Example answers
+
+If you're stuck or want to be inspired, please check out the example_answers folder inside each session folder. These contain scripts produced in live Learn R By Doing sessions, so you can see how other people approached the problem!
