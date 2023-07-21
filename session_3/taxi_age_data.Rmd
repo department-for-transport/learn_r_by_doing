@@ -1,5 +1,5 @@
 ---
-title: "Session 1: Daily Usage Data"
+title: "Session 3: Taxi Vehicle Age Data"
 output: prettydoc::html_pretty
 date: '2023-07-13'
 ---
@@ -14,38 +14,57 @@ library(readxl)
 
 ```
 
+```{css, echo=FALSE}
+.spoiler {
+  visibility: hidden;
+}
+
+.spoiler::before {
+  visibility: visible;
+  content: "HINT! Hover me to see a hint to help on this step."
+}
+
+.spoiler:hover {
+  visibility: visible;
+}
+
+.spoiler:hover::before {
+  display: none;
+}
+```
 
 ## The data
 
 The data we're using today are new experimental statistics looking at the percentage of taxis and PHVs (private hire vehicles) of different ages by region.
 
-The data is available in the data folder associated with this project ("Data/taxi0116.xlsx") in a non-tidy, human-readable format, and you can see the first rows of the data below:
+The data is available in the data folder associated with this project ("Data/taxi0116.xlsx") in a non-tidy, human-readable format. You can see the first rows of the data below:
 
 ```{r}
-readxl::read_excel("../Data/taxi0116.xlsx", sheet = 3, skip = 5) %>%
+readxl::read_excel("../Data/taxi0116.xlsx", sheet = 1) %>%
   head() %>%
   knitr::kable()
 ```
 
-The data covers both taxis and PHVs in separate tables. Each different age range of the vehicles is recorded in a separate column, and each row is for a different region. 
+The data covers both taxis and PHVs in separate sheets (called taxi and phv respectively). Each different age range of the vehicles is recorded in a separate column, and each row is for a different region. 
 
 Each cell contains a value of percentage of vehicles in each region or country that are in each age bracket. Each region or country sums to 100%.
 
 
-
 ## The task
 
-1. Read the data in to R. You don't need to save the file locally, you can do this directly from the web link
+1. Read the data in to R using the readxl `read_excel()` function. It is saved in the Data folder of this repository, and is called `taxi0116.xlsx`. You will want to read in sheet 1 for taxi data. **[You will want to include the folder name in the code when reading the file in e.g. "Data/taxi0116.xlsx"]{.spoiler}**
 
-2. Check that the data is clean, and the different modal names are in a publication-ready format
+2. Pivot the data longer into a tidy data format, so you have the taxi ages in one column, and the percentage of the total in another **[You will want to use the tidyr function pivot_longer() to do this]{.spoiler}**
 
-3. Create a ggplot chart of the data, with dates on the x axis and value on the y axis, with one line per transport mode.
+3. Filter the data to remove the England and Wales and England total rows.
+
+4. Create a stacked bar chart in ggplot of the data, with region on the x axis and percentages on the y axis, splitting the data by taxi age.
 
 4. Make your chart publication-worthy! Aspects you may want to consider include:
 
 * The theme and colours used in your charts
 * The formatting and labelling of your chart axes
-* What should the date range of your data be?
-* Do you want to include weekends and bank holidays?
-* Do you want to include every mode? Could you split the chart to show different groupings on different charts?
+* The order of the regions, and the ages of the taxis
+* Do you want to include the average age of taxis on the chart somehow?
+* Can you duplicate the same chart for the PHV data?
 
