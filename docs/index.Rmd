@@ -16,6 +16,9 @@ This is a repository designed for free-form, hour-long R practice tasks. Each se
 
 [Session 2: Google Mobility Data](/learn_r_by_doing/google_mobility_data.html)
 
+[Session 3: Taxi Age Data](/learn_r_by_doing/taxi_age_data.html)
+
+
 ## Resources and help on the day
 
 There are resources you can make use of if you're stuck on something!
