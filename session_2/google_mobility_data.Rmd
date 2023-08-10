@@ -1,18 +1,21 @@
 ---
-title: "Session 2: Google Mobility Data"
-output: prettydoc::html_pretty
-date: '2023-07-11'
+title: "Google Mobility Fact Sheet"
+author: "Neville de Souza"
+date: '2023-08-09'
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 library(dplyr)
 library(data.table)
+library(knitr)
+library(dftplotr)
+library(ggplot2)
 ```
-
 ```{css, echo=FALSE}
 .spoiler {
   visibility: hidden;
@@ -20,7 +23,7 @@ library(data.table)
 
 .spoiler::before {
   visibility: visible;
-  content: "HINT! Hover me to see a hint to help on this step."
+  content: "Now you don't."
 }
 
 .spoiler:hover {
@@ -33,44 +36,47 @@ library(data.table)
 ```
 
 
-## The data
+# I'm not hiding **[Now you see me]{.spoiler}**
 
-The data we're using today is the now-defunct Google Mobility Data Series, produced to allow people to monitor how people travelled in different countries across the world, based on Google Maps data. This data provides a daily figure for change in mobility compared to the baseline, for different countries, regions, and sub-regions around the world. 
+```{r, echo=FALSE}
+#read in data from the website
 
-The data is available [here](https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv) in a semi-tidy, machine-readable format, and you can see the first 10 rows of the data below:
+data_mobility_series <- data.table::fread("https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv")
 
-```{r}
-data.table::fread("https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv") %>%
-  head() %>%
-  knitr::kable()
+
 ```
 
-The data covers travel in the following types of area:
+```{r, echo=FALSE}
 
-* retail_and_recreation 
-* grocery_and_pharmacy
-* parks 
-* transit_stations
-* workplaces 
-* residential
+#Filter to just GB and country level data
+data_mobility_series <- data_mobility_series %>% 
+                        filter(country_region_code == "GB" & sub_region_1 == "")
 
-Part of the challenge of this data is how large it is; you will need to get used to handling it solely R rather than looking at the CSV in Excel, and working efficiently so your code doesn't take ages to run!
+#Set up columns to pivot into tidy format
+cols_to_include <- c("retail_and_recreation_percent_change_from_baseline",	"grocery_and_pharmacy_percent_change_from_baseline",
+                     "parks_percent_change_from_baseline",	"transit_stations_percent_change_from_baseline",	
+                     "workplaces_percent_change_from_baseline",	"residential_percent_change_from_baseline")
 
-## The task
+#pivot the columns into tidy format
+data_mobility_series_tidy <- data_mobility_series %>% 
+                    tidyr::pivot_longer(cols = all_of(cols_to_include), #Bring the data into a tidy format 
+                                         names_to = "type_of_area", #tidy to one type_of_area column
+                                         values_to = "value") #Put protected type of area values in a column called value
+#tidy up type_of_area
+# We need to remove the leading zeros in 'item code' to be able to join it to the version in ACSES_data
+data_mobility_series_tidy$type_of_area <- stringr::str_replace_all(data_mobility_series_tidy$type_of_area, "_change_from_baseline" , "")
 
-1. Read the data in to R. You don't need to save the file locally, you can do this directly from the web link (https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv) 
+rm(data_mobility_series)
 
-2. Filter the data down to just the United Kingdom and the country-level data only. **[The country_region_code for the United Kingdom is GB, and country-level data is indicated by no sub_region_1]{.spoiler}**
+```
 
-3. Bring the data into a tidy format, so there is only one column for value and one for type of area. **[You will want to use the tidyr pivot_longer() function for this]{.spoiler}**
+```{r, echo=FALSE, results='asis'}
 
-4. Create a ggplot chart of the data, with dates on the x axis and value on the y axis, with one line per type of area.
+data_mobility_series_tidy %>%  ggplot(aes(x = date, y = value, label = type_of_area))+
+  geom_line(aes(color = type_of_area))+ 
+  ggtitle("Change in mobility by type of area") +
+  facet_wrap(~type_of_area) +
+  dftplotr::theme_line_dft(palette = "clear.skies", n=6)
 
-4. Make your chart publication-worthy! Aspects you may want to consider include:
 
-* The theme and colours used in your charts
-* The formatting and labelling of your chart axes
-* What should the date range of your data be?
-* Do you want to include weekends and bank holidays?
-* Do you want to include every type of area? Or would you like to show more than one country, or a breakdown by region? Can you even show multiple types of area _and_ different countries?
-
+```
