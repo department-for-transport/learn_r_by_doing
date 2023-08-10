@@ -1,0 +1,82 @@
+---
+title: "Google Mobility Fact Sheet"
+author: "Neville de Souza"
+date: '2023-08-09'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(dplyr)
+library(data.table)
+library(knitr)
+library(dftplotr)
+library(ggplot2)
+```
+```{css, echo=FALSE}
+.spoiler {
+  visibility: hidden;
+}
+
+.spoiler::before {
+  visibility: visible;
+  content: "Now you don't."
+}
+
+.spoiler:hover {
+  visibility: visible;
+}
+
+.spoiler:hover::before {
+  display: none;
+}
+```
+
+
+# I'm not hiding **[Now you see me]{.spoiler}**
+
+```{r, echo=FALSE}
+#read in data from the website
+
+data_mobility_series <- data.table::fread("https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv")
+
+
+```
+
+```{r, echo=FALSE}
+
+#Filter to just GB and country level data
+data_mobility_series <- data_mobility_series %>% 
+                        filter(country_region_code == "GB" & sub_region_1 == "")
+
+#Set up columns to pivot into tidy format
+cols_to_include <- c("retail_and_recreation_percent_change_from_baseline",	"grocery_and_pharmacy_percent_change_from_baseline",
+                     "parks_percent_change_from_baseline",	"transit_stations_percent_change_from_baseline",	
+                     "workplaces_percent_change_from_baseline",	"residential_percent_change_from_baseline")
+
+#pivot the columns into tidy format
+data_mobility_series_tidy <- data_mobility_series %>% 
+                    tidyr::pivot_longer(cols = all_of(cols_to_include), #Bring the data into a tidy format 
+                                         names_to = "type_of_area", #tidy to one type_of_area column
+                                         values_to = "value") #Put protected type of area values in a column called value
+#tidy up type_of_area
+# We need to remove the leading zeros in 'item code' to be able to join it to the version in ACSES_data
+data_mobility_series_tidy$type_of_area <- stringr::str_replace_all(data_mobility_series_tidy$type_of_area, "_change_from_baseline" , "")
+
+rm(data_mobility_series)
+
+```
+
+```{r, echo=FALSE, results='asis'}
+
+data_mobility_series_tidy %>%  ggplot(aes(x = date, y = value, label = type_of_area))+
+  geom_line(aes(color = type_of_area))+ 
+  ggtitle("Change in mobility by type of area") +
+  facet_wrap(~type_of_area) +
+  dftplotr::theme_line_dft(palette = "clear.skies", n=6)
+
+
+```
