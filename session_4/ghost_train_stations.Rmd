@@ -1,0 +1,77 @@
+---
+title: "Session 4: Ghost Train Stations"
+output: prettydoc::html_pretty
+date: '2023-07-13'
+---
+
+<style type="text/css">
+.main-container {
+  max-width: 1800px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+library(dplyr)
+library(readr)
+
+```
+
+```{css, echo=FALSE}
+.spoiler {
+  visibility: hidden;
+}
+
+.spoiler::before {
+  visibility: visible;
+  content: "HINT! Hover me to see a hint to help on this step."
+}
+
+.spoiler:hover {
+  visibility: visible;
+}
+
+.spoiler:hover::before {
+  display: none;
+}
+```
+
+## The (spooky) data
+
+The data we're looking at today is taken from the ORR passenger footfall in train stations over time. Some stations in the UK show very low footfall over the course of the year, and are often termed "ghost stations". We're going to take a look at how the footfall has changed in these stations over time. 
+
+
+```{r}
+readr::read_csv("../Data/ghost_stations.csv") %>%
+  head(10) %>%
+  knitr::kable()
+```
+
+The data provides details for each station including name, code, region, local authority, and then a footfall figure by year from 1998 onwards. The footfall figures are calculated based on tickets purchased, and years are financial years. The data is in human readable format, with one column per year, and the data is provided in CSV format.
+
+## The task
+
+1. Read the data in to R. It is saved in the Data folder of this repository, and is called `ghost_stations.csv`. **[You will want to include the folder name in the code when reading the file in e.g. "Data/ghost_stations.csv"]{.spoiler}**
+
+2. Order the data by footfall in the current year, with the stations with the lowest footfall at the top of the table.
+
+3. Keep only the 10 stations with the lowest footfall in the current year **[You will want to use the head function with n = 10 to do this]{.spoiler}**
+
+4. Pivot the data longer into a tidy data format, so you have the year in one column, and the footfall in another 
+**[You will want to use the tidyr function pivot_longer() to do this]{.spoiler}**
+
+5. Create a line chart in ggplot of the data, with year on the x axis and footfall on the y axis.
+
+6. Make your chart publication-worthy! Aspects you may want to consider include:
+
+* The theme and colours used in your charts; can you create an autumnal/halloween-themed colour palette and apply it to your chart?
+* The formatting and labelling of your chart axes
+* Can you annotate the chart to highlight the Covid-related drop in 2021?
+* Can you split different regions onto different charts to make the chart easier to read?
+
+

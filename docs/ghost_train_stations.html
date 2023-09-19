@@ -11,9 +11,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-<meta name="date" content="2023-07-12" />
+<meta name="date" content="2023-07-13" />
 
-<title>Learn R by Doing</title>
+<title>Session 4: Ghost Train Stations</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -47,39 +47,472 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
 
 <section class="page-header">
-<h1 class="title toc-ignore project-name">Learn R by Doing</h1>
-<h4 class="date project-date">2023-07-12</h4>
+<h1 class="title toc-ignore project-name">Session 4: Ghost Train
+Stations</h1>
+<h4 class="date project-date">2023-07-13</h4>
 </section>
 
 
 
 <section class="main-content">
-<p>This is a repository designed for free-form, hour-long R practice
-tasks. Each session provides you with a dataset, and a task to complete
-with that data.</p>
-<div id="list-of-sessions" class="section level2">
-<h2>List of sessions</h2>
-<p><a href="/learn_r_by_doing/daily_usage_data.html">Session 1: Daily
-Transport Usage Stats</a></p>
-<p><a href="/learn_r_by_doing/google_mobility_data.html">Session 2:
-Google Mobility Data</a></p>
-<p><a href="/learn_r_by_doing/taxi_age_data.html">Session 3: Taxi Age
-Data</a></p>
-<p><a href="/learn_r_by_doing/ghost_train_stations.html">Session 4:
-Halloween Special Ghost Train Stations Data</a></p>
+<style type="text/css">
+.main-container {
+  max-width: 1800px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<style type="text/css">
+.spoiler {
+  visibility: hidden;
+}
+
+.spoiler::before {
+  visibility: visible;
+  content: "HINT! Hover me to see a hint to help on this step."
+}
+
+.spoiler:hover {
+  visibility: visible;
+}
+
+.spoiler:hover::before {
+  display: none;
+}
+</style>
+<div id="the-spooky-data" class="section level2">
+<h2>The (spooky) data</h2>
+<p>The data we’re looking at today is taken from the ORR passenger
+footfall in train stations over time. Some stations in the UK show very
+low footfall over the course of the year, and are often termed “ghost
+stations”. We’re going to take a look at how the footfall has changed in
+these stations over time.</p>
+<table style="width:100%;">
+<colgroup>
+<col width="5%" />
+<col width="1%" />
+<col width="1%" />
+<col width="3%" />
+<col width="14%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="1%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">station_name</th>
+<th align="right">NLC</th>
+<th align="left">TLC</th>
+<th align="left">region</th>
+<th align="left">local_authority</th>
+<th align="right">1998</th>
+<th align="right">1999</th>
+<th align="right">2000</th>
+<th align="right">2001</th>
+<th align="right">2002</th>
+<th align="right">2003</th>
+<th align="left">2004</th>
+<th align="right">2005</th>
+<th align="right">2006</th>
+<th align="right">2007</th>
+<th align="right">2008</th>
+<th align="right">2009</th>
+<th align="right">2010</th>
+<th align="right">2011</th>
+<th align="right">2012</th>
+<th align="right">2013</th>
+<th align="right">2014</th>
+<th align="right">2015</th>
+<th align="right">2016</th>
+<th align="right">2017</th>
+<th align="right">2018</th>
+<th align="right">2019</th>
+<th align="right">2020</th>
+<th align="right">2021</th>
+<th align="right">2022</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Abbey Wood</td>
+<td align="right">5131</td>
+<td align="left">ABW</td>
+<td align="left">London</td>
+<td align="left">Greenwich</td>
+<td align="right">2060584</td>
+<td align="right">2284585</td>
+<td align="right">2355943</td>
+<td align="right">2443651</td>
+<td align="right">2400216</td>
+<td align="right">2425400</td>
+<td align="left">NA</td>
+<td align="right">2201541</td>
+<td align="right">2089975</td>
+<td align="right">2804493</td>
+<td align="right">3096498</td>
+<td align="right">3029176</td>
+<td align="right">2882868</td>
+<td align="right">3030212</td>
+<td align="right">3134250</td>
+<td align="right">3175430</td>
+<td align="right">3282240</td>
+<td align="right">3319408</td>
+<td align="right">2929472</td>
+<td align="right">2988802</td>
+<td align="right">3124850</td>
+<td align="right">3769402</td>
+<td align="right">3825206</td>
+<td align="right">1412638</td>
+<td align="right">2638456</td>
+</tr>
+<tr class="even">
+<td align="left">Aber</td>
+<td align="right">3813</td>
+<td align="left">ABE</td>
+<td align="left">Wales</td>
+<td align="left">Caerphilly - Caerffili</td>
+<td align="right">88714</td>
+<td align="right">87910</td>
+<td align="right">112812</td>
+<td align="right">115079</td>
+<td align="right">115667</td>
+<td align="right">134397</td>
+<td align="left">NA</td>
+<td align="right">134191</td>
+<td align="right">136549</td>
+<td align="right">169463</td>
+<td align="right">183136</td>
+<td align="right">192180</td>
+<td align="right">192788</td>
+<td align="right">202486</td>
+<td align="right">203432</td>
+<td align="right">209622</td>
+<td align="right">219868</td>
+<td align="right">212546</td>
+<td align="right">214996</td>
+<td align="right">227270</td>
+<td align="right">251108</td>
+<td align="right">245218</td>
+<td align="right">228480</td>
+<td align="right">15712</td>
+<td align="right">73642</td>
+</tr>
+<tr class="odd">
+<td align="left">Abercynon</td>
+<td align="right">3801</td>
+<td align="left">ACY</td>
+<td align="left">Wales</td>
+<td align="left">Rhondda Cynon Taf - Rhondda Cynon Taf</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">194164</td>
+<td align="right">195702</td>
+<td align="right">214492</td>
+<td align="right">240070</td>
+<td align="right">243948</td>
+<td align="right">251688</td>
+<td align="right">265458</td>
+<td align="right">275404</td>
+<td align="right">293638</td>
+<td align="right">298358</td>
+<td align="right">289008</td>
+<td align="right">282886</td>
+<td align="right">33006</td>
+<td align="right">105822</td>
+</tr>
+<tr class="even">
+<td align="left">Abercynon North</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">43073</td>
+<td align="right">42890</td>
+<td align="right">47417</td>
+<td align="right">52014</td>
+<td align="right">62184</td>
+<td align="right">82961</td>
+<td align="left">NA</td>
+<td align="right">112811</td>
+<td align="right">114833</td>
+<td align="right">123455</td>
+<td align="right">127598</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Abercynon South</td>
+<td align="right">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">51191</td>
+<td align="right">49553</td>
+<td align="right">56520</td>
+<td align="right">67107</td>
+<td align="right">72290</td>
+<td align="right">68360</td>
+<td align="left">NA</td>
+<td align="right">92256</td>
+<td align="right">82208</td>
+<td align="right">70294</td>
+<td align="right">64660</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Aberdare</td>
+<td align="right">3982</td>
+<td align="left">ABA</td>
+<td align="left">Wales</td>
+<td align="left">Rhondda Cynon Taf - Rhondda Cynon Taf</td>
+<td align="right">158945</td>
+<td align="right">178680</td>
+<td align="right">219986</td>
+<td align="right">260244</td>
+<td align="right">302859</td>
+<td align="right">331006</td>
+<td align="left">NA</td>
+<td align="right">464026</td>
+<td align="right">465675</td>
+<td align="right">469086</td>
+<td align="right">471586</td>
+<td align="right">506004</td>
+<td align="right">507820</td>
+<td align="right">524592</td>
+<td align="right">537542</td>
+<td align="right">552436</td>
+<td align="right">557992</td>
+<td align="right">551928</td>
+<td align="right">566904</td>
+<td align="right">569364</td>
+<td align="right">571746</td>
+<td align="right">555780</td>
+<td align="right">504622</td>
+<td align="right">53668</td>
+<td align="right">177350</td>
+</tr>
+<tr class="odd">
+<td align="left">Aberdeen</td>
+<td align="right">8976</td>
+<td align="left">ABD</td>
+<td align="left">Scotland</td>
+<td align="left">Aberdeen City</td>
+<td align="right">1550570</td>
+<td align="right">1590804</td>
+<td align="right">1609251</td>
+<td align="right">1607702</td>
+<td align="right">1762708</td>
+<td align="right">1761041</td>
+<td align="left">NA</td>
+<td align="right">1931973</td>
+<td align="right">2107855</td>
+<td align="right">2278872</td>
+<td align="right">2470281</td>
+<td align="right">2568810</td>
+<td align="right">2657014</td>
+<td align="right">2964302</td>
+<td align="right">3170464</td>
+<td align="right">3338072</td>
+<td align="right">3599431</td>
+<td align="right">3742646</td>
+<td align="right">3459944</td>
+<td align="right">3058268</td>
+<td align="right">2948150</td>
+<td align="right">2616142</td>
+<td align="right">2497108</td>
+<td align="right">393982</td>
+<td align="right">1536720</td>
+</tr>
+<tr class="even">
+<td align="left">Aberdour</td>
+<td align="right">9090</td>
+<td align="left">AUR</td>
+<td align="left">Scotland</td>
+<td align="left">Fife</td>
+<td align="right">78964</td>
+<td align="right">87940</td>
+<td align="right">95220</td>
+<td align="right">103545</td>
+<td align="right">95850</td>
+<td align="right">96376</td>
+<td align="left">NA</td>
+<td align="right">112941</td>
+<td align="right">109580</td>
+<td align="right">120420</td>
+<td align="right">121724</td>
+<td align="right">128074</td>
+<td align="right">131874</td>
+<td align="right">129786</td>
+<td align="right">126000</td>
+<td align="right">124298</td>
+<td align="right">127470</td>
+<td align="right">129474</td>
+<td align="right">127312</td>
+<td align="right">125208</td>
+<td align="right">135240</td>
+<td align="right">140048</td>
+<td align="right">126340</td>
+<td align="right">14726</td>
+<td align="right">62990</td>
+</tr>
+<tr class="odd">
+<td align="left">Aberdovey</td>
+<td align="right">4435</td>
+<td align="left">AVY</td>
+<td align="left">Wales</td>
+<td align="left">Gwynedd - Gwynedd</td>
+<td align="right">20938</td>
+<td align="right">19424</td>
+<td align="right">21204</td>
+<td align="right">21030</td>
+<td align="right">21040</td>
+<td align="right">21302</td>
+<td align="left">NA</td>
+<td align="right">23299</td>
+<td align="right">20461</td>
+<td align="right">23365</td>
+<td align="right">25093</td>
+<td align="right">25418</td>
+<td align="right">27996</td>
+<td align="right">32190</td>
+<td align="right">36696</td>
+<td align="right">33612</td>
+<td align="right">34450</td>
+<td align="right">36684</td>
+<td align="right">38094</td>
+<td align="right">35960</td>
+<td align="right">37706</td>
+<td align="right">40390</td>
+<td align="right">36560</td>
+<td align="right">5396</td>
+<td align="right">22886</td>
+</tr>
+<tr class="even">
+<td align="left">Abererch</td>
+<td align="right">4440</td>
+<td align="left">ABH</td>
+<td align="left">Wales</td>
+<td align="left">Gwynedd - Gwynedd</td>
+<td align="right">513</td>
+<td align="right">426</td>
+<td align="right">516</td>
+<td align="right">735</td>
+<td align="right">473</td>
+<td align="right">498</td>
+<td align="left">NA</td>
+<td align="right">1038</td>
+<td align="right">1027</td>
+<td align="right">1095</td>
+<td align="right">1261</td>
+<td align="right">1258</td>
+<td align="right">1326</td>
+<td align="right">1620</td>
+<td align="right">1786</td>
+<td align="right">1214</td>
+<td align="right">1380</td>
+<td align="right">326</td>
+<td align="right">1984</td>
+<td align="right">2140</td>
+<td align="right">2506</td>
+<td align="right">2228</td>
+<td align="right">2148</td>
+<td align="right">0</td>
+<td align="right">396</td>
+</tr>
+</tbody>
+</table>
+<p>The data provides details for each station including name, code,
+region, local authority, and then a footfall figure by year from 1998
+onwards. The footfall figures are calculated based on tickets purchased,
+and years are financial years. The data is in human readable format,
+with one column per year, and the data is provided in CSV format.</p>
 </div>
-<div id="resources-and-help-on-the-day" class="section level2">
-<h2>Resources and help on the day</h2>
-<p>There are resources you can make use of if you’re stuck on
-something!</p>
+<div id="the-task" class="section level2">
+<h2>The task</h2>
+<ol style="list-style-type: decimal">
+<li><p>Read the data in to R. It is saved in the Data folder of this
+repository, and is called <code>ghost_stations.csv</code>. <strong><span class="spoiler">You will want to include the folder name in the code
+when reading the file in
+e.g. “Data/ghost_stations.csv”</span></strong></p></li>
+<li><p>Order the data by footfall in the current year, with the stations
+with the lowest footfall at the top of the table.</p></li>
+<li><p>Keep only the 10 stations with the lowest footfall in the current
+year <strong><span class="spoiler">You will want to use the head
+function with n = 10 to do this</span></strong></p></li>
+<li><p>Pivot the data longer into a tidy data format, so you have the
+year in one column, and the footfall in another <strong><span class="spoiler">You will want to use the tidyr function pivot_longer()
+to do this</span></strong></p></li>
+<li><p>Create a line chart in ggplot of the data, with year on the x
+axis and footfall on the y axis.</p></li>
+<li><p>Make your chart publication-worthy! Aspects you may want to
+consider include:</p></li>
+</ol>
 <ul>
-<li><a href="https://department-for-transport.github.io/intro_R/">Data
-analysis and visualisation in R</a></li>
-<li><a href="https://department-for-transport.github.io/tidy_data_workshop/">Tidy
-data in R</a></li>
+<li>The theme and colours used in your charts; can you create an
+autumnal/halloween-themed colour palette and apply it to your
+chart?</li>
+<li>The formatting and labelling of your chart axes</li>
+<li>Can you annotate the chart to highlight the Covid-related drop in
+2021?</li>
+<li>Can you split different regions onto different charts to make the
+chart easier to read?</li>
 </ul>
-<p>And there will always be experts on hand to help you out, so don’t be
-afraid to ask!</p>
 </div>
 </section>
 

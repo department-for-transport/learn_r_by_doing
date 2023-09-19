@@ -18,6 +18,8 @@ This is a repository designed for free-form, hour-long R practice tasks. Each se
 
 [Session 3: Taxi Age Data](/learn_r_by_doing/taxi_age_data.html)
 
+[Session 4: Halloween Special Ghost Train Stations Data](/learn_r_by_doing/ghost_train_stations.html)
+
 
 ## Resources and help on the day
 
