@@ -82,6 +82,11 @@ Motor vehicles is further broken down by vehicle type:
 * light_commercial_vehicles
 * heavy_goods_vehicles
 
+There are two series available for rail, one which includes Crossrail and one which excludes it:
+
+* national_rail
+* national_rail_noCR
+
 Where no data is available for a specific date, you can treat that as an NA value.
 
 
