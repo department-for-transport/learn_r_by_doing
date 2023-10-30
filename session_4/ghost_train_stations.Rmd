@@ -58,7 +58,7 @@ The data provides details for each station including name, code, region, local a
 
 1. Read the data in to R. It is saved in the Data folder of this repository, and is called `ghost_stations.csv`. If you haven't cloned this repository, it's also available to read in directly from: https://raw.githubusercontent.com/department-for-transport/learn_r_by_doing/main/Data/ghost_stations.csv
 
-2. Order the data by footfall in the current year, with the stations with the lowest footfall at the top of the table.
+2. Order the data by footfall in 2020 (the last normal year before Covid!), with the stations with the lowest footfall at the top of the table.
 
 3. Keep only the 10 stations with the lowest footfall in the current year **[You will want to use the head function with n = 10 to do this]{.spoiler}**
 
