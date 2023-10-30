@@ -60,7 +60,7 @@ The data provides details for each station including name, code, region, local a
 
 2. Order the data by footfall in 2020 (the last normal year before Covid!), with the stations with the lowest footfall at the top of the table.
 
-3. Keep only the 10 stations with the lowest footfall in the current year **[You will want to use the head function with n = 10 to do this]{.spoiler}**
+3. Keep only the 10 stations with the lowest footfall in 2020 **[You will want to use the head function with n = 10 to do this]{.spoiler}**
 
 4. Pivot the data longer into a tidy data format, so you have the year in one column, and the footfall in another 
 **[You will want to use the tidyr function pivot_longer() to do this]{.spoiler}**
