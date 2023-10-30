@@ -56,7 +56,7 @@ The data provides details for each station including name, code, region, local a
 
 ## The task
 
-1. Read the data in to R. It is saved in the Data folder of this repository, and is called `ghost_stations.csv`. **[You will want to include the folder name in the code when reading the file in e.g. "Data/ghost_stations.csv"]{.spoiler}**
+1. Read the data in to R. It is saved in the Data folder of this repository, and is called `ghost_stations.csv`. If you haven't cloned this repository, it's also available to read in directly from: https://raw.githubusercontent.com/department-for-transport/learn_r_by_doing/main/Data/ghost_stations.csv
 
 2. Order the data by footfall in the current year, with the stations with the lowest footfall at the top of the table.
 
