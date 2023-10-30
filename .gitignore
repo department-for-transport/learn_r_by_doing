@@ -61,6 +61,7 @@ Outputs/
 ##So are our docs
 !docs/*
 !Data/taxi0116.xlsx
+!Data/ghost_stations.csv
 
 ##Common image types
 *.png
